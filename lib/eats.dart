@@ -3,6 +3,7 @@ import 'package:ubol/bigsquare.dart';
 import 'package:ubol/chickeninn.dart';
 import 'package:ubol/galitos.dart';
 import 'package:ubol/home.dart';
+import 'package:ubol/italiano.dart';
 import 'package:ubol/pizzahut.dart';
 import 'package:ubol/pizzainn.dart';
 
@@ -54,7 +55,7 @@ class _EatsState extends State<Eats> {
                 Navigator.of(context).push(
                   MaterialPageRoute(
                     builder: (BuildContext context) {
-                      return const PizzaInn();
+                      return const Pizzahut();
                     },
                   ),
                 );
@@ -158,9 +159,9 @@ class _EatsState extends State<Eats> {
               
               
                  Row(
-                  children: [const Padding(padding: EdgeInsetsDirectional.all(20)),
+                  children: [const Padding(padding: EdgeInsetsDirectional.only(start: 20)),
                     Image.asset("assets/pizzainn.png",width: 250,height: 250,),                
-                         const Padding(padding: EdgeInsetsDirectional.only(end: 20),),
+                         const Padding(padding: EdgeInsetsDirectional.only(start: 40),),
                     ElevatedButton(
                         onPressed: () {
                           Navigator.of(context).push(
@@ -267,7 +268,7 @@ class _EatsState extends State<Eats> {
                           Navigator.of(context).push(
                             MaterialPageRoute(
                               builder: (BuildContext context) {
-                                return const PizzaInn();
+                                return const Italiano();
                               },
                             ),
                           );

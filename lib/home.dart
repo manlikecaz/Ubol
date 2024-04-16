@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:ubol/eats.dart';
 import 'package:ubol/homepage.dart';
+import 'package:ubol/profile.dart';
+import 'package:ubol/settings.dart';
 
 class Home1 extends StatelessWidget {
   const Home1({super.key});
@@ -43,16 +45,22 @@ class _HomeState extends State<Home> {
                 onTap: () {
                   Navigator.of(context)
                       .push(MaterialPageRoute(builder: (BuildContext context) {
-                    return const HomePage();
+                    return const Homepage();
                   }));
                 }),
             const Padding(padding: EdgeInsetsDirectional.only(bottom: 20.0)),
-            const ListTile(
+             ListTile(
               tileColor: Colors.black,
-              titleTextStyle: TextStyle(fontWeight: FontWeight.bold),
-              leading: Icon(Icons.person_pin_rounded),
-              iconColor: Color.fromARGB(198, 234, 173, 167),
-              title: Text("Profile"),textColor: Color.fromARGB(198, 234, 173, 167),
+              titleTextStyle:const  TextStyle(fontWeight: FontWeight.bold),
+              leading:const  Icon(Icons.person_pin_rounded),
+              iconColor:const  Color.fromARGB(198, 234, 173, 167),
+              title: const Text("Profile"),textColor: Color.fromARGB(198, 234, 173, 167),
+              onTap: () {
+                Navigator.of(context)
+                    .push(MaterialPageRoute(builder: (BuildContext context) {
+                  return const ProfilePage();
+                }));
+              }
             ),
             const Padding(padding: EdgeInsetsDirectional.only(bottom: 20.0)),
             ListTile(
@@ -64,7 +72,7 @@ class _HomeState extends State<Home> {
               onTap: () {
                 Navigator.of(context)
                     .push(MaterialPageRoute(builder: (BuildContext context) {
-                  return const HomePage();
+                  return const Settings();
                 }));
               },
             ),
@@ -194,7 +202,7 @@ class _HomeState extends State<Home> {
               padding: EdgeInsets.only(bottom: 20.0, right: 2000),
             ),
             Row(
-              children: [
+              children: [ const Padding(padding: EdgeInsetsDirectional.only(start: 30)),
                 Image.asset(
                   "assets/van.png",
                   width: 200,
@@ -214,6 +222,7 @@ class _HomeState extends State<Home> {
                 const Padding(
                   padding: EdgeInsets.only(left: 160),
                 ),
+                
                 Image.asset(
                   "assets/zoot.png",
                   width: 200,
@@ -236,7 +245,7 @@ class _HomeState extends State<Home> {
               padding: EdgeInsets.only(bottom: 1.0, right: 90),
             ),
             Row(
-              children: [
+              children: [const Padding(padding: EdgeInsetsDirectional.only(start: 30)),
                 Image.asset(
                   "assets/swift.png",
                   width: 200,
@@ -278,7 +287,7 @@ class _HomeState extends State<Home> {
               padding: EdgeInsets.only(bottom: 1.0, right: 90),
             ),
             Row(
-              children: [
+              children: [const Padding(padding: EdgeInsetsDirectional.only(start: 30)),
                 Image.asset(
                   "assets/x.png",
                   width: 200,

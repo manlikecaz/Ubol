@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:ubol/cart.dart';
-
-class ChickenInn extends StatefulWidget {
-  const ChickenInn({super.key});
+import 'package:ubol/cart.dart';class Italiano extends StatefulWidget {
+  const Italiano({super.key});
 
   @override
-  State<ChickenInn> createState() => _ChickenInnState();
+  State<Italiano> createState() => _ItalianoState();
 }
 
-class _ChickenInnState extends State<ChickenInn> {
+class _ItalianoState extends State<Italiano> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,7 +41,7 @@ class _ChickenInnState extends State<ChickenInn> {
                   ),
                   child: Column(
                     children: [ RichText(text: const TextSpan(
-                      text: "Welcome to Chicken Inn.",
+                      text: "Welcome to Italiano Pizza.",
                       style: TextStyle(
                         fontSize: 26,
                         fontWeight: FontWeight.bold,
@@ -51,10 +49,10 @@ class _ChickenInnState extends State<ChickenInn> {
                     )), const Padding(padding: EdgeInsetsDirectional.only(bottom: 30)),
                       Row(
                         children: [
-                          Image.asset("assets/twopiecer.png"),
+                          Image.asset("assets/italianooriginal.png"),
                           const Padding(padding: EdgeInsetsDirectional.only(start: 30)),
                           RichText(text: const TextSpan(
-                            text: "Fries and two pieces of chicken",
+                            text: "Italiano Original",
                             style: TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.bold,
@@ -73,12 +71,11 @@ class _ChickenInnState extends State<ChickenInn> {
                       const Padding(padding: EdgeInsetsDirectional.only(bottom: 30)),
                       Row(
                         children: [
-                          Image.asset("assets/familypack.png",
-                          width: 230,
+                          Image.asset("assets/italianoolive.png",
                           ),
                           const Padding(padding: EdgeInsetsDirectional.only(start: 30)),
                           RichText(text: const TextSpan(
-                            text: "Family pack share ",
+                            text: "Italiano olive Pizza ",
                             style: TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.bold,
@@ -97,10 +94,11 @@ class _ChickenInnState extends State<ChickenInn> {
                       const Padding(padding: EdgeInsetsDirectional.only(bottom: 30)),
                       Row(
                         children: [
-                          Image.asset("assets/bucket.png"),
+                          Image.asset("assets/italianozing.png",
+                          ),
                           const Padding(padding: EdgeInsetsDirectional.only(start: 30)),
                           RichText(text: const TextSpan(
-                            text: "Fries and bucket of chicken",
+                            text: "Italiano Zing Pizza",
                             style: TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.bold,
@@ -119,10 +117,10 @@ class _ChickenInnState extends State<ChickenInn> {
                       const Padding(padding: EdgeInsetsDirectional.only(bottom: 30)),
                       Row(
                         children: [
-                          Image.asset("assets/threepiecer.png"),
+                          Image.asset("assets/italianochicken.png"),
                           const Padding(padding: EdgeInsetsDirectional.only(start: 30)),
                           RichText(text: const TextSpan(
-                            text: "Fries and three pieces of chicken",
+                            text: "Italiano Chaicken Pizza",
                             style: TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.bold,
@@ -145,3 +143,4 @@ class _ChickenInnState extends State<ChickenInn> {
     );
   }
 }
+    
