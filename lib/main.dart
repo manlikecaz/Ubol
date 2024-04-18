@@ -1,6 +1,14 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:ubol/firebase_options.dart';
 import 'package:ubol/splashscreen.dart';
+import 'package:ubol/user_preferences.dart';
 void main() async {
+
+WidgetsFlutterBinding.ensureInitialized();
+await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+ await UserPreferences.init();
+
   runApp(const Ubol());
 }
 class Ubol extends StatelessWidget {

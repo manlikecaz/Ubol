@@ -1,5 +1,13 @@
+import 'dart:ffi';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:ubol/button_widget.dart';
+import 'package:ubol/edit_settings.dart';
+import 'package:ubol/numbers_widget.dart';
+import 'package:ubol/settings_widget.dart';
+import 'package:ubol/user.dart';
 import 'package:ubol/user_preferences.dart';
 
 class Settings extends StatefulWidget {
@@ -12,7 +20,7 @@ class Settings extends StatefulWidget {
 class _SettingsState extends State<Settings> {
   @override
   Widget build(BuildContext context) {
-    final user = UserPreferences.myUser;
+    final user = UserPreferences.getUser();
     return  Scaffold(
       appBar: AppBar(
        backgroundColor: Color.fromARGB(255, 121, 121, 169),
@@ -23,90 +31,114 @@ class _SettingsState extends State<Settings> {
         ),
         actions: [Image.asset("assets/profile.png")],
       ),
-      body: ListView(
-        physics: BouncingScrollPhysics(),
-        children: [
-          Container( width: double.infinity,
-            decoration: const BoxDecoration(
-              gradient: LinearGradient(colors:[ Colors.black, Colors.blueGrey, Colors.redAccent,Colors.deepPurpleAccent],
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight           
-              ),
-            ),
-            padding: const EdgeInsetsDirectional.only(top: 28),
-            child: Column(
-              children: [
-                RichText(text: const TextSpan(
-                  text: "This is your user profile .",
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold
-                  ),
-                )),
-                 const Padding(padding:   EdgeInsetsDirectional.only(top: 28),),
-                Row( 
-                  children: [const Padding(padding: EdgeInsetsDirectional.only(start: 30),),
-                const  CircleAvatar( 
-                	radius: 48, // Image radius 
-                	backgroundImage: AssetImage('assets/meteor-rain.gif'), 
+      body: Stack(
+        children: [ Container(width: double.infinity,
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(colors: [Colors.black, Colors.blueGrey, Colors.redAccent,Colors.deepPurpleAccent],
+          begin:Alignment.topLeft ,
+          end: Alignment.bottomRight,
+          )
+        ),
+        ),
+          ListView(
+            physics: const BouncingScrollPhysics(),
+            children: [   const Padding(padding: EdgeInsetsDirectional.only(bottom: 30)),
+            SettingsWidget(
+                  imagepath: user.imagepath,
+                
+                  onClicked: () async {
+                   await Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) {
+                      return const EditSettingsPage();
+                    }));
+                    setState(() {});
+                  },
                 ),
-                const Padding(padding: EdgeInsetsDirectional.only(start: 20)),
-                  RichText(text: const TextSpan(
-                    text: "Star rating 6.0",
-                    style: TextStyle(
-                    fontSize: 15,
-                    fontWeight: FontWeight.bold
-                  ),
-                  )),
-                  const Padding(padding: EdgeInsetsDirectional.only(start:50),),
-                   const  CircleAvatar( 
-                	radius: 120, // Image radius 
-                	backgroundImage: AssetImage('assets/social-page.gif'), 
-                ),
-                  
-                  ],
-                ),
-                const Padding(padding: EdgeInsetsDirectional.only(bottom: 28)),
-                Container(
-                  color: Colors.black12,
-                  child: RichText(text: const TextSpan(
-                    text: "OFFER HUB.",
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold
-                    )
-                    ),
-                    ),
-                ),
-                const Padding(padding: EdgeInsetsDirectional.only(bottom: 28)),
-                Container(
-                  color: Colors.black12,
-                  width: 800,
-                  height: 250,padding: const EdgeInsetsDirectional.only(start: 50),
-                  child: RichText(text: const TextSpan(
-                    text: "The offers you acquire will be shown below together with the expiry date.",
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w300,
-                    )
-                )
-            )
-            ),
-              Container(
-                  color: Colors.black12,
-                  width: 800,
-                  height: 250,padding: const EdgeInsetsDirectional.only(start: 50),
-                  child: 
-                    TextFormField(
-                obscureText: false,
-                decoration: const InputDecoration(hintText: "Email"),
-              ), 
-              )
-            ],
-            ) ,
-          ),
-        ],
+          
+                buildName(user),
+                  const Padding(padding: EdgeInsetsDirectional.only(bottom: 24)),
+                Center(child: buildUpgradeButton()),
+                NumbersWidget(),
+                buildOffers(user), 
+                 buildAbout(user), 
+          
+            ]),
+            SizedBox(
+        height: 90,
       ),
-    );
+         
+      ])
+      )
+      ;
   }
+  Widget buildName(User user)=> Column(
+    
+    children: [
+     
+     Text(
+      user.name,
+      style: const TextStyle(
+        fontSize: 16,
+        fontWeight: FontWeight.bold,
+        color: Colors.black
+      ),
+     ),
+     const Padding(padding: EdgeInsetsDirectional.only(bottom: 20)),
+     Text(
+      user.email,
+      style: const TextStyle(
+        fontSize: 16,
+        fontWeight: FontWeight.bold,
+        color: Colors.black
+      ),
+     )
+  ]
+   );
+  Widget buildUpgradeButton()=> ButtonWidget(
+    text:
+      'Upgrade to Pro',
+      onClicked:(){}
+    
+ );
+ Widget buildOffers(User user)=> Container(
+  padding: const EdgeInsets.symmetric(horizontal: 48),
+   child: const Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [ Padding(padding: EdgeInsetsDirectional.only(start: 78,bottom: 38)),
+      Text(
+        'Offers. ',
+        style:  TextStyle(
+          fontSize: 16,
+          fontWeight: FontWeight.bold,
+          color: Colors.black
+   )),
+   
+   
+   ]),
+ );
+  Widget buildAbout(User user)=> Container(
+  padding: const EdgeInsets.symmetric(horizontal: 48),
+   child: Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [ const Padding(padding: EdgeInsetsDirectional.only(start: 78,bottom: 38)),
+      const  Text(
+        'Offers. ',
+        style:  TextStyle(
+          fontSize: 16,
+          fontWeight: FontWeight.bold,
+          color: Colors.black
+   )),
+    Text(
+        user.about,
+        style: const TextStyle(
+          fontSize: 16,
+          fontWeight: FontWeight.normal,
+          color: Colors.white
+   ))],
+   
+   ),
+ );
+
 }
+  
+
+  
