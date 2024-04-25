@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:ubol/bigsquare.dart';
-import 'package:ubol/chickeninn.dart';
-import 'package:ubol/galitos.dart';
-import 'package:ubol/home.dart';
-import 'package:ubol/italiano.dart';
-import 'package:ubol/pizzahut.dart';
-import 'package:ubol/pizzainn.dart';
+import 'package:provider/provider.dart';
+import 'package:ubol/cart.dart';
+import 'package:ubol/components/food_tile.dart';
+import 'package:ubol/components/my_button.dart';
+import 'package:ubol/food_details.dart';
+import 'package:provider/provider.dart';
 
+import 'package:ubol/models/food.dart';
+import 'package:ubol/models/shop.dart';
 class Eats extends StatefulWidget {
   const Eats({super.key});
 
@@ -15,343 +16,133 @@ class Eats extends StatefulWidget {
 }
 
 class _EatsState extends State<Eats> {
+ 
+
+  void navigateToFoodDetails(int index) {
+     //to get the shop and its menu
+  final shop = context.read<Shop>();
+  final foodMenu = shop.FoodMenu;
+    Navigator.push( context as BuildContext,  MaterialPageRoute(builder: ( context) =>
+       FoodDetails(food: foodMenu[index],),
+    ));
+  }
+ 
+
   @override
   Widget build(BuildContext context) {
+        //to get the shop and its menu
+  final shop = context.read<Shop>();
+  final foodMenu = shop.FoodMenu;
     return Scaffold(
-      drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: [
-            const DrawerHeader(
-              decoration: BoxDecoration(color:   Color.fromARGB(198, 234, 173, 167)),
-              child: Text("Drawer Header"),
-            ),
-            ListTile(
-              leading: const Icon(Icons.home_filled),
-              iconColor:  const Color.fromARGB(198, 234, 173, 167),
-              tileColor: Colors.black,
-              textColor:  const Color.fromARGB(198, 234, 173, 167),
-              title: const Text("Home"),
-              onTap: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (BuildContext context) {
-                      return const Home();
-                    },
-                  ),
-                );
-              },
-            ),
-            const Padding(padding: EdgeInsets.only(bottom: 10.0)),
-            ListTile(
-              leading: const Icon(
-                Icons.food_bank_sharp,
+      
+      appBar:  AppBar(
+        backgroundColor: Color.fromARGB(255,138,60,55),
+          title: const Text("Ubol"),
+          actions: [
+            Row(children: [
+              Image.asset("assets/letter-u.png"),
+              const Padding(padding: EdgeInsetsDirectional.only(start: 290)),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.of(context)
+                      .push(MaterialPageRoute(builder: (BuildContext context) {
+                    return const CartPage();
+                  }));
+                },
+                child: const Icon(Icons.shopping_cart),
               ),
-              iconColor:  const Color.fromARGB(198, 234, 173, 167),
-              title: const Text("Pizza Inn"), 
-              tileColor: Colors.black,
-              textColor:  const Color.fromARGB(198, 234, 173, 167),
-              onTap: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (BuildContext context) {
-                      return const Pizzahut();
-                    },
-                  ),
-                );
-              },
-            ),
-            const Padding(padding: EdgeInsets.only(bottom: 10.0)),
-            ListTile(
-              leading: const Icon(
-                Icons.food_bank_sharp,
-              ),
-              iconColor:  const Color.fromARGB(198, 234, 173, 167),
-              title: const Text("Galitos"),
-              tileColor: Colors.black,
-              textColor:  const Color.fromARGB(198, 234, 173, 167),
-              onTap: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (BuildContext context) {
-                      return const Galitos();
-                    },
-                  ),
-                );
-              },
-            ),
-            const Padding(padding: EdgeInsets.only(bottom: 10.0)),
-            ListTile(
-              leading: const Icon(Icons.food_bank_outlined),
-              iconColor:  const Color.fromARGB(198, 234, 173, 167),
-              title: const Text("Chicken inn"),
-              tileColor: Colors.black,
-              textColor:  const Color.fromARGB(198, 234, 173, 167),
-              onTap: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(builder: (BuildContext context) {
-                    return const ChickenInn();
-                  }),
-                );
-              },
-            ),
-            const Padding(padding: EdgeInsets.only(bottom: 10.0)),
-            ListTile(
-              leading: const Icon(Icons.food_bank_outlined),
-              iconColor:  const Color.fromARGB(198, 234, 173, 167),
-              title: const Text("Pizza Hut"),
-              tileColor: Colors.black,
-              textColor:  const Color.fromARGB(198, 234, 173, 167),
-              onTap: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (BuildContext context) {
-                      return const Pizzahut();
-                    },
-                  ),
-                );
-              },
-            ),
-            const Padding(padding: EdgeInsets.only(bottom: 10.0)),
-            ListTile(
-              leading: const Icon(Icons.food_bank_outlined),
-              iconColor:  const Color.fromARGB(198, 234, 173, 167),
-              title: const Text("Big Square"),
-              tileColor: Colors.black,
-              textColor:  const Color.fromARGB(198, 234, 173, 167),
-              onTap: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (BuildContext context) {
-                      return const BigSquare();
-                    },
-                  ),
-                );
-              },
-            ),
+            ])
           ],
-        ),
       ),
-      appBar: AppBar(
-        backgroundColor: const Color.fromARGB(255, 137, 97, 110),
-        title: const Text("Ubol"),
-        actions: [
-          IconButton(
-              onPressed: () {
-                showSearch(context: context, delegate: CustomDelegateSearch());
-              },
-              icon: const Icon(Icons.search)),
-          Image.asset("assets/letter-u.png"),
-        ],
-      ), 
+    
+      body: 
       
-      
-      body:  SingleChildScrollView(
-        child: Container(width: double.infinity,
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(colors: [Colors.black,Colors.blueGrey],
-          begin:  Alignment.topRight,
-          end: Alignment.bottomLeft,
-          )
-        ),
-          child: Column( 
-            children: [
-              
-              
-                 Row(
-                  children: [const Padding(padding: EdgeInsetsDirectional.only(start: 20)),
-                    Image.asset("assets/pizzainn.png",width: 250,height: 250,),                
-                         const Padding(padding: EdgeInsetsDirectional.only(start: 40),),
-                    ElevatedButton(
-                        onPressed: () {
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (BuildContext context) {
-                                return const PizzaInn();
-                              },
-                            ),
-                          );
-                         const Padding(padding: EdgeInsetsDirectional.all(200),);
-                        },
-                        child: const Text("Pizza inn")),
-                   const Padding(padding: EdgeInsets.only(left: 30)),
-                    Image.asset("assets/galitos.png",
-                    width: 250,
-                    height: 250
-                    ,)
-                    ,                
-                         const Padding(padding: EdgeInsets.only(left:20),),
-                    ElevatedButton(
-                        onPressed: () {
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (BuildContext context) {
-                                return const Galitos();
-                              },
-                            ),
-                          );
-                         const Padding(padding: EdgeInsetsDirectional.all(200),);
-                        },
-                        child: const Text("Galitos")),
-                     
-                     
-                  ],
-                
+       Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+         children: [ 
+          
+           Container(
+            margin: const EdgeInsetsDirectional.symmetric(horizontal: 112),
+            padding: const EdgeInsets.all(25),
+             decoration:  BoxDecoration(
+            color: Color.fromARGB(255, 14, 1, 1),
+            borderRadius: BorderRadius.circular(20)
+            
+           ),
+            child: Image.asset('assets/Eats.gif')),
+          
+          SizedBox(
+            height: 20,
+          ),
+           Container(
+            margin: const EdgeInsetsDirectional.symmetric(horizontal: 1),
+            padding: const EdgeInsets.all(25),
+             decoration:  BoxDecoration(
+            color: Color.fromARGB(255,138,60,55),
+            borderRadius: BorderRadius.circular(20)
+            
+           ),
                  
-                ),
-                 Row(
-                  children: [const Padding(padding: EdgeInsetsDirectional.all(10)),
-                    Image.asset("assets/chickeninn.png",width: 250,height: 250,),                
-                         const Padding(padding: EdgeInsetsDirectional.only(end: 20),),
-                    ElevatedButton(
-                        onPressed: () {
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (BuildContext context) {
-                                return const ChickenInn();
-                              },
-                            ),
-                          );
-                         const Padding(padding: EdgeInsetsDirectional.all(200),);
-                        },
-                        child: const Text("Chicken inn")),
-                   const Padding(padding: EdgeInsets.only(left: 30)),
-                    Image.asset("assets/pizzahut.png",
-                    width: 250,
-                    height: 250
-                    ,)
-                    ,                
-                         const Padding(padding: EdgeInsets.only(left:20),),
-                    ElevatedButton(
-                        onPressed: () {
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (BuildContext context) {
-                                return const Pizzahut();
-                              },
-                            ),
-                          );
-                         const Padding(padding: EdgeInsetsDirectional.all(200),);
-                        },
-                        child: const Text("Pizzahut ")),
-                     
-                     
+             child: Row(
+               children: [
+                 Column(
+                  
+                  children: [
+                   
+                    const Row(
+                      children: [
+                        Text('Get 50% once 50 purchaces',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20,
+                        ),
+                        ),
+                      ],
+                    ),
+                    const  SizedBox(height: 20,),
+                   ElevatedButton(
+                    
+                    onPressed: (){}, child: RichText(text: TextSpan(
+                    text: 'REDEEM',
+                    style: TextStyle(
+                      color: Colors.black,
+                      backgroundColor: Colors.grey[300]
+                    )
+                   ))),
+                   
                   ],
-                
+                  
+                 ),
+                 Padding(padding: EdgeInsets.symmetric(horizontal: 25)),
+                 Image.asset('assets/burger.png'),
                  
-                ),
-                Row(
-                  children: [const Padding(padding: EdgeInsetsDirectional.all(12)),
-                    Image.asset("assets/bigsquare.png",width: 250,height: 250,),                
-                         const Padding(padding: EdgeInsetsDirectional.only(end: 20),),
-                    ElevatedButton(
-                        onPressed: () {
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (BuildContext context) {
-                                return const BigSquare();
-                              },
-                            ),
-                          );
-                         const Padding(padding: EdgeInsetsDirectional.all(200),);
-                        },
-                        child: const Text("Bigsquare")),
-                   const Padding(padding: EdgeInsets.only(left: 30)),
-                    Image.asset("assets/italiano.png",
-                    width: 250,
-                    height: 250
-                    ,)
-                    ,                
-                         const Padding(padding: EdgeInsets.only(left:20),),
-                    ElevatedButton(
-                        onPressed: () {
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (BuildContext context) {
-                                return const Italiano();
-                              },
-                            ),
-                          );
-                         const Padding(padding: EdgeInsetsDirectional.all(200),);
-                        },
-                        child: const Text("Italiano")),
-                     
-                     
-                  ],
-                
-                 
-                ),
-                RichText(text: const TextSpan(
-                  text: "The map below shows the area frequented by requests and is always red hot busy."
-                )),
-                const Padding(padding: EdgeInsetsDirectional.only(bottom: 20)),
-                Image.asset("assets/route.gif")
-                
-                
-                
-                         
-                
-                
-                
-                
-              ]),
-        ),
+               ],
+               
+             ),
              
            ),
+           
+           const Padding(padding: EdgeInsets.symmetric(horizontal: 25,vertical: 25)),
+           RichText(text: const TextSpan(
+            text: 'Food menu.',
+            style: TextStyle(
+              color: Colors.black,
+              fontWeight: FontWeight.bold,
+              fontSize: 20,
+            )
+           )),
+           Expanded(
+            child: ListView.builder(
+              scrollDirection: Axis.vertical,
+            itemCount : foodMenu.length,
+            itemBuilder: (context, index) => FoodTile(
+              food: foodMenu[index],
+              onTap: ()=>navigateToFoodDetails(index)
+            ))),
+         ],
+       ),
+       
     
-      
-      
-    );
-  }
-}
-
-class CustomDelegateSearch extends SearchDelegate {
-  @override
-  Widget? buildLeading(BuildContext context) => IconButton(
-        icon: const Icon(Icons.arrow_back),
-        onPressed: () => close(context, null),
-      );
-
-  @override
-  List<Widget>? buildActions(BuildContext context) => [
-        IconButton(
-          icon: const Icon(Icons.cancel),
-          onPressed: () {
-            if (query.isEmpty) {
-              close(context, null);
-            } else {
-              query = "";
-            }
-          },
-        )
-      ];
-
-  @override
-  Widget buildResults(BuildContext context) => Container(
-        child: Text(query),
-      );
-  @override
-  Widget buildSuggestions(BuildContext context) {
-    List<String> suggestions = [
-      "Pizza Inn",
-      "Galitos",
-      " Chicken Inn",
-      "Pizza Hut",
-      "Big Square",
-    ];
-    return ListView.builder(
-        itemCount: suggestions.length,
-        itemBuilder: (contex, index) {
-          final suggestion = suggestions[index];
-
-          return ListTile(
-            title: Text(suggestion),
-            onTap: () {
-              query = suggestion;
-
-              showResults(context);
-            },
-          );
-        });
+    ); 
   }
 }

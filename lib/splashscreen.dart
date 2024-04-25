@@ -13,7 +13,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void  initState() {
     Future.delayed(const Duration(seconds: 2),(){
       Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (BuildContext context){
-        return const Login();
+        return LoginPage(onTap: () {  },);
       }));
     }        
     );

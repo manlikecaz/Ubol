@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-class SettingsWidget extends StatelessWidget {
+class ProfileWidget extends StatelessWidget {
   final String imagepath;
   final bool isEdit;
   final VoidCallback onClicked;
 
-const SettingsWidget({
+const ProfileWidget({
   Key? key,
   required this.imagepath,
   this.isEdit = false,
   required this.onClicked,
 }):super(key: key);
  
-
+ 
   @override
   Widget build(BuildContext context) {
    final color= Theme.of(context).colorScheme.primary;

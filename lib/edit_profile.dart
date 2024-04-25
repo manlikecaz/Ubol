@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:ubol/button_widget.dart';
-import 'package:ubol/settings_widget.dart';
-import 'package:ubol/textfield_widget.dart';
+import 'package:ubol/widgets/button_widget.dart';
+import 'package:ubol/widgets/profile_widget.dart';
+import 'package:ubol/widgets/textfield_widget.dart';
 import 'package:ubol/user.dart';
 import 'package:ubol/user_preferences.dart';
 
-class EditSettingsPage extends StatefulWidget {
-  const EditSettingsPage({super.key});
+class EditProfilePage extends StatefulWidget {
+  const EditProfilePage({super.key});
 
   @override
-  State<EditSettingsPage> createState() => _EditSettingsPageState();
+  State<EditProfilePage> createState() => _EditProfilePageState();
 }
 
-class _EditSettingsPageState extends State<EditSettingsPage> {
+class _EditProfilePageState extends State<EditProfilePage> {
   User user = UserPreferences.myUser;
   @override
   Widget build(BuildContext context) {
@@ -37,7 +37,7 @@ class _EditSettingsPageState extends State<EditSettingsPage> {
         ),ListView(
               physics: const BouncingScrollPhysics(),
               children: [   const Padding(padding: EdgeInsetsDirectional.only(bottom: 30)),
-              SettingsWidget(
+              ProfileWidget(
                     imagepath: user.imagepath,
                     isEdit: true,
                     onClicked: () async {},
